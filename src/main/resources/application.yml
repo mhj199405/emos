@@ -1,0 +1,183 @@
+server:
+  port: 8086
+
+spring:
+  datasource:
+    type: org.apache.commons.dbcp2.BasicDataSource
+    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://192.168.37.10:3306/emos?useSSL=false&useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+#    url: jdbc:mysql://127.0.0.1:3306/spdb?useSSL=false&useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://168.1.26.16:3306/ganshu?useSSL=false&useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: admin
+    password: admin123
+#    url: jdbc:mysql://127.0.0.1:3306/gansu?useSSL=false&useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: root
+    defaultAutoCommit: false
+    maxTotal: 10
+    maxIdle: 10
+    maxWaitMillis: 60000
+    validationQuery: "select 1+2"
+    testOnBorrow: false
+    testWhileIdle: true
+    timeBetweenEvictionRunsMillis: 180000
+    numTestsPerEvictionRun: 3
+#  datasource:
+#    type: org.apache.commons.dbcp2.BasicDataSource
+#    driverClassName: oracle.jdbc.driver.OracleDriver
+#    url: jdbc:oracle:thin:@10.12.2.49:1521:YLXXH
+#    username: dwdb_smkh
+#    password: dwdb_smkh
+#    defaultAutoCommit: false
+#    maxTotal: 10
+#    maxIdle: 10
+#    maxWaitMillis: 60000
+#    validationQuery: "select 1+2 from dual"
+#    testOnBorrow: false
+#    testWhileIdle: true
+#    timeBetweenEvictionRunsMillis: 180000
+#    numTestsPerEvictionRun: 3
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: com.tongtech.common.config.SnakeCaseNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: "yyyy-MM-dd HH:mm:ss"
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+allow-origin:
+  origin:
+    - http://192.168.56.201:9000
+    - http://127.0.0.1:9000
+    - "*"
+csip-client:
+  connects:
+    - mark: connect-1
+      #      ip:   10.12.2.48
+      ip:   172.20.101.190
+      port: 10001
+      user: aaa
+      password: aaa123456
+  parallel-num: 100
+  timeout: 300
+  use-csip: true
+
+storage:
+  upload-dir: /opt/spdb3/bin/upload-dir
+  download-dir: /opt/spdb3/bin/download-dir
+
+xcloud:
+  uploadPath: /opt/emos/static/images/
+
+rule:
+  method:
+    methodList:
+      - name: addrule
+        url: http://168.1.26.15:9108/api/rule_engine/list/add
+      - name: deleterule
+        url: http://168.1.26.15:9108/api/rule_engine/list/delete
+      - name: modifyrule
+        url: http://168.1.26.15:9108/api/rule_engine/list/update
+      - name: getallrule
+        url: http://168.1.26.15:9108/api/rule_engine/list/query
+      - name: compile
+        url: http://168.1.26.15:9108/api/rule_engine/compile
+      - name: publish
+        url: http://168.1.26.15:9108/api/rule_engine/release
+      - name: get
+        url: http://168.1.26.15:9108/api/template/form
+
+
+process:
+  method:
+   methodList:
+     - name: 0
+       url: http://168.1.26.15:8210/api/process-engine/proc_create
+     - name: 1
+       url: http://168.1.26.15:8210/api/process-engine/proc_delete
+     - name: 2
+       url: http://168.1.26.15:8210/api/process-engine/proc_modify
+     - name: 3
+       url: http://168.1.26.15:8210/api/process-engine/query_proc
+     - name: 4
+       url: http://168.1.26.15:8210/api/process-engine/proc_define
+     - name: 5
+       url: http://168.1.26.15:8210/api/process-engine/proc_config_node_attr
+     - name: 6
+       url: http://168.1.26.15:8210/api/process-engine/query_proc_define
+     - name: 7
+       url: http://168.1.26.15:8210/api/process-engine/query_node_attr
+     - name: 8
+       url: http://168.1.26.15:8210/api/process-engine/query_todo
+     - name: 9
+       url: http://168.1.26.15:8210/api/process-engine/query_orig
+     - name: 10
+       url: http://168.1.26.15:8210/api/process-engine/commit_task
+     - name: 11
+       url: http://168.1.26.15:8210/api/process-engine/new_proc_ins
+     - name: 12
+       url: http://168.1.26.15:8210/api/process-engine/query_proc_ins
+     - name: 13
+       url: http://168.1.26.15:8210/api/process-engine/query_proc_ins_one
+     - name: 14
+       url: http://168.1.26.15:8210/api/process-engine/query_node_ins
+     - name: 15
+       url: http://168.1.26.15:8210/api/process-engine/query_link_ins
+     - name: 16
+       url: http://168.1.26.15:8210/api/process-engine/query_def_proc_sum
+     - name: 17
+       url: http://168.1.26.15:8210/api/process-engine/new_proc_ins_with_par
+     - name: 18
+       url: http://168.1.26.15:8210/api/process-engine/query_after_in_condition
+     - name: 19
+       url: http://168.1.26.15:8210/api/process-engine/accept_task
+
+
+analyze:
+  method:
+    methodList:
+      - name: 0
+        url: http://168.1.26.15:9080/tongtech/api/custom/analysis/gtheme
+      - name: 1
+        url: http://168.1.26.15:9080/tongtech/api/custom/analysis/query
+      - name: 2
+        url: http://168.1.26.15:9080/tongtech/api/custom/analysis/export
+      - name: 3
+        url: http://168.1.26.15:9080/tongtech/api/custom/analysis/gtemplate
+      - name: 4
+        url: http://168.1.26.15:9080/tongtech/api/custom/analysis/ptemplate
+      - name: 5
+        url: http://168.1.26.15:9080/tongtech/api/custom/analysis/glevel
+
+
+#test tag
+logging:
+  level:
+     root: info
+     org.springframework.web: debug
+     com.tongtech: debug
+collect:
+  path : http://oss.tongtech.com/oss/api_service.enc?event={event}&omc_id={omc_id}&type={type}&stime={stime}&etime={etime}
+  path1 : http://oss.tongtech.com/oss/api_service.enc?event={event}&omc_id={omc_id}&type={type}&stime={stime}
+
+interface:
+  url: "http://168.1.26.15:8210/api/process-engine/new_proc_ins_with_par"
+  user-id: 3
+  user-name: "inf1"
+  depar-id: "1"
+  depart-name: "dept1"
+  password: "123456"
